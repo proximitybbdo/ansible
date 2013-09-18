@@ -1,0 +1,5 @@
+[webservers]
+146.185.138.175   # digital ocean arch
+
+[dbservers]
+146.185.138.175   # digital ocean arch

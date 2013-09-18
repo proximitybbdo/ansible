@@ -1,0 +1,18 @@
+---
+# This playbook will install mysql and create db user and give permissions.
+
+- name: install mysql package
+  pacman: name={{ item }} state=installed
+  with_items:
+    - mysql
+    - mysql-python        # for ansible module
+
+- name: create mysql configuration file
+  action: template src=my.cnf.j2 dest=/etc/my.cnf
+  notify: restart mysql
+
+- name: start mysql Service
+  service: name=mysqld state=started enabled=true
+
+- name: create application DB user
+  mysql_user: name={{ dbuser }} password='' priv=*.*:ALL host='%' state=present
