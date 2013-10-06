@@ -2,3 +2,19 @@
 - name: import iptable rules
   template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
   notify: restart iptables
+
+- name: update pacman
+  action: command pacman -Syy
+
+- name: install git and zsh
+  pacman: name=$item state=installed
+  with_items:
+    - git
+    - zsh
+    - git-core
+
+- name: create admin group
+  action: group name=admin
+
+- include: add_user.yml user=jeroenb group=admin
+- include: add_user.yml user=pieterm group=admin

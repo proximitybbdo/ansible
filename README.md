@@ -10,6 +10,7 @@ Getting started
 ---------------
 
 ````
+[remote]
 # copy all needed ssh keys to the DO box
 ssh-copy-id -i ~/.ssh/id_rsa.pub root@146.185.138.175
 
@@ -19,6 +20,7 @@ pacman -Syy
 # install python
 pacman -S python2
 
+[local]
 # run a test (make sure your pwd is this repo)
 ansible all -i hosts -m ping -u root
 ````

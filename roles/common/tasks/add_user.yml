@@ -1,0 +1,5 @@
+---
+- name: create user
+  action: user name={{user}} group={{group}} shell=/usr/bin/zsh
+
+- include: ohmyzsh.yml homedir=/home/{{user}}
