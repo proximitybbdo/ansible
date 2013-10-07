@@ -4,7 +4,7 @@
   action: user name={{user}} group={{group}} shell=/usr/bin/zsh
 
 - name: add public key to authorized keys
-  authorized_key: user={{user}} key="{{item}}" path="/home/{{user}}/.ssh/.authorized_keys"
+  authorized_key: user={{user}} key="{{item}}"
   with_file:
     - ssh_keys/{{user}}
   notify:

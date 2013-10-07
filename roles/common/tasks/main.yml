@@ -18,6 +18,9 @@
     - zsh
     - git-core
 
+- name: install vim
+  pacman: name=vim state=installed
+
 - name: create admin group
   action: group name=admin
 
@@ -25,5 +28,7 @@
   with_items: users
 
 - name: copy sshd config
-  action: template src=/sshd_config.j2 dest=/etc/ssh/ssdh_config
+  action: template src=sshd_config.j2 dest=/etc/ssh/ssdh_config
+  notify:
+    - restart sshd
 
