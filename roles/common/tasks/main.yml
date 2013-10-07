@@ -1,4 +1,5 @@
 ---
+
 - name: import iptable rules
   template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
   notify: restart iptables
@@ -6,8 +7,12 @@
 - name: update pacman
   action: command pacman -Syy
 
+- name: set server locale
+  file: src=/usr/share/zoneinfo/Europe/Brussels dest=/etc/localtime state=link
+
 - name: install git and zsh
   pacman: name=$item state=installed
+  sudo: yes
   with_items:
     - git
     - zsh
@@ -16,5 +21,9 @@
 - name: create admin group
   action: group name=admin
 
-- include: add_user.yml user=jeroenb group=admin
-- include: add_user.yml user=pieterm group=admin
+- include: add_user.yml user={{item}} group=admin
+  with_items: users
+
+- name: copy sshd config
+  action: template src=/sshd_config.j2 dest=/etc/ssh/ssdh_config
+

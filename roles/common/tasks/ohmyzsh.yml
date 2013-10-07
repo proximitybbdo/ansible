@@ -4,7 +4,7 @@
 # task, and the command users the current user to install to
 - name: clone oh-my-zsh
   git:  repo=git://github.com/robbyrussell/oh-my-zsh.git
-        dest={{homedir}}/.oh-my-zsh
+    dest={{homedir}}/.oh-my-zsh update=no
 
 - name: create zshconfig from template
   action: command cp .oh-my-zsh/templates/zshrc.zsh-template .zshrc chdir={{homedir}}

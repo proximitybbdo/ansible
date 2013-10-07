@@ -15,7 +15,7 @@ Getting started
 ssh-copy-id -i ~/.ssh/id_rsa.pub root@146.185.138.175
 
 # update Arch
-pacman -Syy
+# pacman -Syy
 
 # install python
 pacman -S python2
@@ -24,7 +24,3 @@ pacman -S python2
 # run a test (make sure your pwd is this repo)
 ansible all -i hosts -m ping -u root
 ````
-
-Todo
-----
-- add pacman -Syy to common task`
