@@ -1,0 +1,10 @@
+---
+- name: clone the proximity vim repo
+  git:  repo=git://github.com/proximitybbdo/vim.git
+    dest=/home/{{user}}/.vim update=no
+
+- name: set the correct owner
+  action: file path=/home/{{user}}/.vim owner={{user}} group={{group}} mode=0755 state=directory
+
+- name: install the custom vim setup
+  action: command ./.vim/install chdir=/home/{{user}}

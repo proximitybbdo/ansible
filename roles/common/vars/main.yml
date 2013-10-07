@@ -1,5 +1,7 @@
 ---
 
 users:
-  - jeroenb
-  - pieterm
+  - name: jeroenb
+    group: admin
+  - name: pieterm
+    group: admin

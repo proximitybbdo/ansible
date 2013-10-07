@@ -24,11 +24,5 @@
 - name: create admin group
   action: group name=admin
 
-- include: add_user.yml user={{item}} group=admin
+- include: add_user.yml user={{item.name}} group={{item.group}}
   with_items: users
-
-- name: copy sshd config
-  action: template src=sshd_config.j2 dest=/etc/ssh/ssdh_config
-  notify:
-    - restart sshd
-

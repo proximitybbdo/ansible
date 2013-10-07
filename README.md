@@ -11,11 +11,9 @@ Getting started
 
 ````
 [remote]
-# copy all needed ssh keys to the DO box
-ssh-copy-id -i ~/.ssh/id_rsa.pub root@146.185.138.175
 
 # update Arch
-# pacman -Syy
+pacman -Syy
 
 # install python
 pacman -S python2
