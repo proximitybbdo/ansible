@@ -3,5 +3,7 @@
 users:
   - name: jeroenb
     group: admin
+    password: $1HwhHhIpFLck
   - name: pierot
     group: admin
+    password: $1HwhHhIpFLck

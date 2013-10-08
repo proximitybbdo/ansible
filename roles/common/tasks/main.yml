@@ -25,5 +25,8 @@
 - name: create admin group
   action: group name=admin
 
-- include: add_user.yml user={{item.name}} group={{item.group}}
+- include: add_user.yml
+    user={{item.name}}
+    group={{item.group}}
+    password={{item.password}}
   with_items: users
