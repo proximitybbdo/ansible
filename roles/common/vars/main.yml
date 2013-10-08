@@ -3,9 +3,7 @@
 users:
   - name: jeroenb
     group: admin
-    groups: sudo
-    password: $1HwhHhIpFLck
+    password: $5$rounds=80000$HalY051ch9L3D3MO$sf6ZtueFLs4y1UQBTD73Fijv77xJP92EU2.vF1uHlX1
   - name: pierot
     group: admin
-    groups: sudo
-    password: $1HwhHhIpFLck
+    password: $5$rounds=80000$HalY051ch9L3D3MO$sf6ZtueFLs4y1UQBTD73Fijv77xJP92EU2.vF1uHlX1
