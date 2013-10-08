@@ -10,16 +10,15 @@
 - name: set server locale
   file: src=/usr/share/zoneinfo/Europe/Brussels dest=/etc/localtime state=link
 
-- name: install git and zsh
+- name: install packages
   pacman: name=$item state=installed
   sudo: yes
   with_items:
     - git
     - zsh
     - git-core
-
-- name: install vim
-  pacman: name=vim state=installed
+    - vim
+    - tmux
 
 - name: create admin group
   action: group name=admin
