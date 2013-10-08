@@ -4,6 +4,9 @@
   copy: src=iptables.rules dest=/etc/iptables/iptables.rules
   notify: restart iptables
 
+- name: set sudoers file
+  copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
+
 - name: update pacman
   action: command pacman -Syy
 
