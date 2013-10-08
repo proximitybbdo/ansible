@@ -3,7 +3,9 @@
 users:
   - name: jeroenb
     group: admin
+    groups: sudo
     password: $1HwhHhIpFLck
   - name: pierot
     group: admin
+    groups: sudo
     password: $1HwhHhIpFLck

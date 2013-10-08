@@ -10,6 +10,6 @@
   notify:
     - restart sshd
 
-- include: ohmyzsh.yml user={{user}} group={{group}}
+- include: ohmyzsh.yml user={{user}} group={{group}} groups={{groups}}
 
 - include: vim.yml user={{user}} group={{group}}

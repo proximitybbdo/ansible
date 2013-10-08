@@ -1,7 +1,7 @@
 ---
 
 - name: import iptable rules
-  template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
+  copy: src=iptables.rules dest=/etc/iptables/iptables.rules
   notify: restart iptables
 
 - name: update pacman
@@ -28,5 +28,6 @@
 - include: add_user.yml
     user={{item.name}}
     group={{item.group}}
+    groups={{item.groups}}
     password={{item.password}}
   with_items: users
