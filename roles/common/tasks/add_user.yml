@@ -1,7 +1,7 @@
 ---
 
 - name: create user
-  action: user name={{user}} group={{group}} shell=/usr/bin/zsh password={{password}}
+  action: user name={{user}} group={{group}} shell=/usr/bin/zsh password={{password}} update_password=on_create
 
 - name: add public key to authorized keys
   authorized_key: user={{user}} key="{{item}}"
