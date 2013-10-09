@@ -314,7 +314,7 @@ DocumentRoot "/srv/http"
 #
 # This should be changed to whatever you set DocumentRoot to.
 #
-<Directory "/var/www/html">
+<Directory "/srv/http">
 
 #
 # Possible values for the Options directive are "None", "All",
@@ -422,7 +422,7 @@ AccessFileName .htaccess
 # TypesConfig describes where the mime.types file (or equivalent) is
 # to be found.
 #
-TypesConfig /etc/mime.types
+TypesConfig /etc/httpd/conf/mime.types
 
 #
 # DefaultType is the default MIME type the server will use for a document
@@ -948,6 +948,3 @@ BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
 # php
 LoadModule php5_module modules/libphp5.so
 Include conf/extra/php5_module.conf
-
-AddType application/x-httpd-php .php
-AddType application/x-httpd-php-source .phps

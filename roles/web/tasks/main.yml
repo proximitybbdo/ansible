@@ -14,6 +14,11 @@
 
 - name: setup apache httpd conf
   template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  notify:
+    - restart apache
+
+- name: add mimetype for php
+  lineinfile: dest=/etc/httpd/conf/mime.types regexp="^application/x-httpd-php" line="application/x-httpd-php php php5" state=present
 
 - name: create the index.php file
   template: src=index.php.j2 dest=/srv/http/index.php mode=0755
