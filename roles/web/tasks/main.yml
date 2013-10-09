@@ -21,7 +21,7 @@
   lineinfile: dest=/etc/httpd/conf/mime.types regexp="^application/x-httpd-php" line="application/x-httpd-php php php5" state=present
 
 - name: set host
-lineinfile: dest=/etc/hosts regexp=localhost line="127.0.0.1 localhost leroy" state=present
+  lineinfile: dest=/etc/hosts regexp=localhost line="127.0.0.1 localhost leroy" state=present
 
 - name: create the index.php file
   template: src=index.php.j2 dest=/srv/http/index.php mode=0755
