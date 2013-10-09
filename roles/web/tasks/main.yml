@@ -19,4 +19,7 @@
   template: src=index.php.j2 dest=/srv/http/index.php mode=0755
 
 - name: install node
-pacman: name=node state=installed
+  pacman: name=node state=installed
+
+- name: install grunt (global)
+  action: command npm install -g grunt-cli
