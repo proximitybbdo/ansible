@@ -1,10 +1,10 @@
-Ansible
-=======
+BBDO goes Ansible
+=================
 
 Prereq
 ------
 
-Digital Ocean box running Arch Linux
+Digital Ocean box running **Arch Linux**
 
 Getting started
 ---------------
