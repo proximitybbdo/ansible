@@ -1,6 +1,6 @@
 ---
 - name: clone the proximity vim repo
-  git:  repo=git://github.com/proximitybbdo/vim.git
+  git: repo=git://github.com/proximitybbdo/vim.git
     dest=/home/{{user}}/.vim update=no
 
 - name: set the correct owner
