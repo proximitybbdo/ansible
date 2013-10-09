@@ -17,3 +17,6 @@
 
 - name: create the index.php file
   template: src=index.php.j2 dest=/srv/http/index.php mode=0755
+
+- name: install node
+pacman: name=node state=installed
