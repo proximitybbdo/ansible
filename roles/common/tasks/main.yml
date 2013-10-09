@@ -23,6 +23,7 @@
     - vim
     - tmux
     - wget
+    - ruby
     - the_silver_searcher # ack, but faster
 
 - name: create admin group
