@@ -36,5 +36,4 @@ Todo
 ----
 - only create password on user creation, never overwrite
 - oh-my-zsh folder -> chown to user:group (recursive)
-- add node
-- add grunt (global)
+- ask Pieter if node should go in the webserver role or common role
