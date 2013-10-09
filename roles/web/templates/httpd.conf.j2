@@ -150,7 +150,7 @@ Listen 80
 LoadModule auth_basic_module modules/mod_auth_basic.so
 LoadModule auth_digest_module modules/mod_auth_digest.so
 LoadModule authn_file_module modules/mod_authn_file.so
-LoadModule authn_alias_module modules/mod_authn_alias.so
+# LoadModule authn_alias_module modules/mod_authn_alias.so
 LoadModule authn_anon_module modules/mod_authn_anon.so
 LoadModule authn_dbm_module modules/mod_authn_dbm.so
 LoadModule authn_default_module modules/mod_authn_default.so
@@ -218,7 +218,7 @@ LoadModule version_module modules/mod_version.so
 #
 # Load config files from the config directory "/etc/httpd/conf.d".
 #
-Include conf.d/*.conf
+# Include /etc/httpd/conf/*.conf
 
 #
 # ExtendedStatus controls whether Apache will generate "full" status
@@ -239,8 +239,8 @@ Include conf.d/*.conf
 #  when the value of (unsigned)Group is above 60000;
 #  don't use Group #-1 on these systems!
 #
-User httpd
-Group httpd
+User http
+Group http
 
 ### Section 2: 'Main' server configuration
 #

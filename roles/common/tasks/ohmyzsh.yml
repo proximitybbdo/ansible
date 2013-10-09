@@ -11,6 +11,3 @@
 
 - name: create zshconfig from template
   action: command cp .oh-my-zsh/templates/zshrc.zsh-template .zshrc chdir=/home/{{user}}
-
-- name: set the correct owner
-  action: file path=/home/{{user}}/.zshrc owner={{user}} group={{group}} mode=0644
