@@ -4,7 +4,8 @@ BBDO goes Ansible
 Prereq
 ------
 
-Digital Ocean box running **Arch Linux**
+- Digital Ocean box running **Arch Linux**
+- Ansible 1.3 (update_password option for the user module)
 
 Getting started
 ---------------
@@ -37,3 +38,6 @@ Todo
 - only create password on user creation, never overwrite
 - oh-my-zsh folder -> chown to user:group (recursive)
 - ask Pieter if node should go in the webserver role or common role
+- think about:
+  - apache directory listing?
+  - mysql user?
