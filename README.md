@@ -37,7 +37,11 @@ Todo
 ----
 - only create password on user creation, never overwrite
 - oh-my-zsh folder -> chown to user:group (recursive)
-- ask Pieter if node should go in the webserver role or common role
+- ask pierot if node should go in the webserver role or common role
 - think about:
-  - apache directory listing?
+  - apache directory listing -> yes
   - mysql user?
+  - fail2ban
+  - block mysql port
+  - block 8080
+  - postfix (pierot)
