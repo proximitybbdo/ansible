@@ -1,0 +1,46 @@
+# setting default filter policy
+
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+
+# allow unlimited traffic on loopback
+-A INPUT -i lo -j ACCEPT
+-A OUTPUT -o lo -j ACCEPT
+
+# allow established connections to receive (pacman)
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# all outgoing
+-A OUTPUT -m state --state NEW,ESTABLISHED -j ACCEPT
+
+# ping
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+# ssh
+-A INPUT -p tcp -s 0/0 -d {{ ansible_eth0.ipv4.address }} --sport 513:65535 --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+-A OUTPUT -p tcp -s {{ ansible_eth0.ipv4.address }} -d 0/0 --sport 22 --dport 513:65535 -m state --state ESTABLISHED -j ACCEPT
+
+# # log and drop
+# -N LOG_AND_DROP
+# -A LOG_AND_DROP -j LOG --log-prefix "iptables deny: " --log-level 7
+# -A LOG_AND_DROP -j DROP
+
+# # allow incoming ssh only
+# -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -m recent --set --name ssh --rsource
+# -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -m recent ! --rcheck --seconds 60 --hitcount 4 --name ssh --rsource -j ACCEPT
+# -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -m recent --rcheck --seconds 60 --hitcount 4 --name ssh --rsource -j LOG_AND_DROP
+
+# open access to mysql server for lan users only
+-I INPUT -p tcp --dport 3306 -j ACCEPT
+
+# log iptables denied calls (access via 'dmesg' command)
+# -A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+
+# make sure nothing comes or goes out of this box
+# -A INPUT -j DROP
+# -A OUTPUT -j DROP
+# -A FORWARD -j DROP
+
+COMMIT

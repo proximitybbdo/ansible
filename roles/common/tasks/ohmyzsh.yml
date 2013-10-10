@@ -7,7 +7,7 @@
     dest=/home/{{user}}/.oh-my-zsh update=no
 
 - name: set the correct owner
-  action: file path=/home/{{user}}/.oh-my-zsh owner={{user}} group={{group}} mode=0755 state=directory
+  action: file path=/home/{{user}}/.oh-my-zsh owner={{user}} group={{group}} mode=0755 state=directory recurse=yes
 
 - name: create zshconfig from template
   action: command cp .oh-my-zsh/templates/zshrc.zsh-template .zshrc chdir=/home/{{user}}

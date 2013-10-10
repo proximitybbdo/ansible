@@ -1,11 +1,16 @@
 ---
 
 - name: import iptable rules
-  copy: src=iptables.rules dest=/etc/iptables/iptables.rules
+  template: src=iptables.rules.j2 dest=/etc/iptables/iptables.rules
   notify: restart iptables
 
-- name: set sudoers file
+- name: sudoers
   copy: src=sudoers dest=/etc/sudoers validate='visudo -cf %s'
+
+- name: sshd_config
+  copy: src=sshd_config dest=/etc/ssh/sshd_config
+  notify: restart sshd
+
 
 - name: update pacman
   action: command pacman -Syy

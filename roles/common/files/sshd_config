@@ -1,10 +1,10 @@
+Port 22
+Protocol 2
 PasswordAuthentication no
 ChallengeResponseAuthentication no
-PermitRootLogin yes
-RSAAuthentication yes
 PubkeyAuthentication yes
 MaxAuthTries 6
 PermitTunnel yes
 PasswordAuthentication no
-UsePAM no
-AuthorizedKeysFile %h/.ssh/authorized_keys
+UseDNS no
+PermitRootLogin without-password

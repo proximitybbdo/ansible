@@ -7,4 +7,4 @@
   action: file path=/home/{{user}}/.vim owner={{user}} group={{group}} mode=0755 state=directory
 
 - name: install the custom vim setup
-  action: command ./.vim/install chdir=/home/{{user}}
+  action: command ./.vim/install creates=./.vim/install chdir=/home/{{user}}
