@@ -24,6 +24,7 @@
     - tmux
     - wget
     - ruby
+    - nodejs
     - the_silver_searcher # ack, but faster
 
 - name: create admin group
