@@ -1,6 +1,14 @@
 ---
 - name: Install Bundler
-  action: gem install bundler --no-rdoc --no-ri
+  gem: name=bundler state=latest user_install=yes
+  sudo_user: $user
+  sudo: yes
 
-- name: Install Compass
-  action: gem install compass --no-rdoc --no-ri
+- name: Install various gems
+  gem: name=$item state=latest user_install=yes
+  sudo_user: $user
+  sudo: yes
+  with_items:
+    - compass
+    - compass-h5bp
+    - ceaser-easing

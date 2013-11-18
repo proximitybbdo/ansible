@@ -35,8 +35,6 @@
 - name: create admin group
   action: group name=admin
 
-- include: ruby.yml
-
 - include: add_user.yml
     user={{item.name}}
     group={{item.group}}

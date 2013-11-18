@@ -1,0 +1,23 @@
+---
+# This playbook builds a LAMP stack
+
+- name: apply common configuration to all nodes
+  hosts: all
+  user: vagrant
+
+  roles:
+    - common
+
+- name: configure and deploy the webservers
+  hosts: webservers
+  user: vagrant
+
+  roles:
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  user: vagrant
+
+  roles:
+    - db
