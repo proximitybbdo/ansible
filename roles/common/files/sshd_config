@@ -3,8 +3,8 @@ Protocol 2
 PasswordAuthentication no
 ChallengeResponseAuthentication no
 PubkeyAuthentication yes
+PasswordAuthentication no
 MaxAuthTries 6
 PermitTunnel yes
-PasswordAuthentication no
 UseDNS no
 PermitRootLogin without-password

@@ -8,16 +8,16 @@
   roles:
     - common
 
-# - name: configure and deploy the webservers
-#   hosts: webservers
-#   user: root
-#
-#   roles:
-#     - web
-#
-# - name: deploy MySQL and configure the databases
-#   hosts: dbservers
-#   user: root
-#
-#   roles:
-#     - db
+- name: configure and deploy the webservers
+  hosts: webservers
+  user: root
+
+  roles:
+    - web
+
+- name: deploy MySQL and configure the databases
+  hosts: dbservers
+  user: root
+
+  roles:
+    - db

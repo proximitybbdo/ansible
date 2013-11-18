@@ -19,6 +19,9 @@ pacman -Syy
 # install python
 pacman -S python2
 
+# or in a gist form
+sudo bash -c 'bash <( curl -s https://gist.github.com/pierot/7066699/raw/d7c7b934e2dab02ab3bdac978714c106fa7929d6/arch_for_ansible)'
+
 [local]
 # run a test (make sure your pwd is this repo)
 ansible all -i hosts -m ping -u root

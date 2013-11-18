@@ -1,0 +1,6 @@
+---
+- name: Install Bundler
+  action: gem install bundler --no-rdoc --no-ri
+
+- name: Install Compass
+  action: gem install compass --no-rdoc --no-ri
