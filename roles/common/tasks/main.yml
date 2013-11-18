@@ -41,3 +41,5 @@
     groups={{item.groups}}
     password={{item.password}}
   with_items: users
+
+- include: ruby.yml

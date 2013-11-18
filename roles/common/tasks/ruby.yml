@@ -1,14 +1,14 @@
 ---
-- name: Install Bundler
-  gem: name=bundler state=latest user_install=yes
-  sudo_user: $user
-  sudo: yes
+
+- name: Update Rubygems
+  command: gem update --system
 
 - name: Install various gems
-  gem: name=$item state=latest user_install=yes
+  gem: name=$item state=present user_install=yes
   sudo_user: $user
   sudo: yes
   with_items:
+    - bundler
     - compass
     - compass-h5bp
     - ceaser-easing
