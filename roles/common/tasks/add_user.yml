@@ -15,3 +15,18 @@
 - include: vim.yml user={{user}} group={{group}}
 
 - include: ruby.yml user={{user}}
+
+- name: create personal conf folder
+  file: path=/home/{{user}}/conf state=directory
+  file: path=/home/{{user}}/conf/apache state=directory
+
+- name: setup user based vhost
+  template: src=vhosts.conf.j2 dest=/home/{{user}}/conf/apache/vhosts.conf
+
+- name: create personal web root
+  file: path=/home/{{user}}/projects state=directory
+
+- name: add user port to httpd/apache
+  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp='^Listen {{port}}' insertafter='^#Listen' line='Listen {{port}}'
+  notify:
+    - restart apache
