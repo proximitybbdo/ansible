@@ -3,4 +3,11 @@
     ServerName srv_{{user}}
     ErrorLog logs/srv_{{user}}.projects-error_log
     CustomLog logs/srv_{{user}}.projects-access_log common
+
+    <Directory />
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
 </VirtualHost>

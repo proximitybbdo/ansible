@@ -21,3 +21,13 @@
 
   roles:
     - db
+
+# @pierot -> voor later, maar hier `all` zetten bij hosts
+# zou slecht kunnen zijn of ook niet, ik leg dan eens verder uit.
+# Maar nu neem ik `webservers`
+- name: add and setup users
+  hosts: webservers
+  user: root
+
+  roles:
+    - user
