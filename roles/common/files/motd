@@ -20,4 +20,3 @@ IP Addresses.......: `ip -4 addr | grep -v 127.0.0.1 | grep inet | cut -d " " -f
 Running Processes..: `ps ax | wc -l | tr -d " "`
 
 $(tput sgr0)"
-
