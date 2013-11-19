@@ -11,6 +11,10 @@
   copy: src=sshd_config dest=/etc/ssh/sshd_config
   notify: restart sshd
 
+- name: sshd_config banner
+  copy: src=sshd_issue.net dest=/etc/issue.net
+  notify: restart sshd
+
 - name: update pacman
   action: command pacman -Syy
 
@@ -41,5 +45,3 @@
     groups={{item.groups}}
     password={{item.password}}
   with_items: users
-
-- include: ruby.yml

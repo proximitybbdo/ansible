@@ -8,3 +8,4 @@ MaxAuthTries 6
 PermitTunnel yes
 UseDNS no
 PermitRootLogin without-password
+Banner /etc/issue.net
