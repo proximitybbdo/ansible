@@ -38,10 +38,3 @@
 
 - name: create admin group
   action: group name=admin
-
-- include: add_user.yml
-    user={{item.name}}
-    group={{item.group}}
-    groups={{item.groups}}
-    password={{item.password}}
-  with_items: users

@@ -1,0 +1,7 @@
+- include: add_user.yml
+    user={{item.name}}
+    group={{item.group}}
+    groups={{item.groups}}
+    password={{item.password}}
+    port={{item.port}}
+  with_items: users

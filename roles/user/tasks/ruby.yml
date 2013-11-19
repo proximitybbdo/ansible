@@ -1,4 +1,8 @@
 ---
+- name: Install Bundler
+  gem: name=bundler state=present user_install=yes
+  sudo_user: $user
+  sudo: yes
 
 - name: Update Rubygems
   command: gem update --system

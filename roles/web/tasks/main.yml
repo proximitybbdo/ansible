@@ -13,7 +13,7 @@
   service: name=httpd state=started enabled=yes
 
 - name: setup apache httpd conf
-  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  copy: src=httpd.conf dest=/etc/httpd/conf/httpd.conf
   notify:
     - restart apache
 
@@ -23,8 +23,13 @@
 - name: set host
   lineinfile: dest=/etc/hosts regexp=localhost line="127.0.0.1 localhost leroy" state=present
 
-- name: create the index.php file
+- name: create the main index.php file
   template: src=index.php.j2 dest=/srv/http/index.php mode=0755
+
+- name: make the /home folder accessible for apache
+  action: file path=/home group=admin mode=0755 state=directory recurse=no
+
+  # move the `admin` into a main vars file, because the webserver_group is used in several places
 
 - name: install grunt (global)
   action: command npm install -g grunt-cli
