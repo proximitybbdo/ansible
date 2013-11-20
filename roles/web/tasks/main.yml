@@ -17,6 +17,9 @@
   notify:
     - restart apache
 
+- name: setup php.ini
+  copy: src=php.ini dest=/etc/php/php.ini
+
 - name: add mimetype for php
   lineinfile: dest=/etc/httpd/conf/mime.types regexp="^application/x-httpd-php" line="application/x-httpd-php php php5" state=present
 
