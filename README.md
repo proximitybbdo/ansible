@@ -42,8 +42,7 @@ Todo
 - oh-my-zsh folder -> chown to user:group (recursive)
 - ask pierot if node should go in the webserver role or common role
 - think about:
-  - apache directory listing -> yes
-  - mysql user?
+   mysql user?
   - fail2ban
   - block mysql port
   - block 8080
@@ -51,3 +50,4 @@ Todo
 - enable phar.so by default in php.ini
 - move the webserver_group into a main vars file, because the webserver_group is used in several places
 - run vim ./install script after clone
+- setup git config per user
