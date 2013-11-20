@@ -44,8 +44,6 @@ Todo
 - think about:
    mysql user?
   - fail2ban
-  - block mysql port
-  - block 8080
   - postfix (pierot)
 - enable phar.so by default in php.ini
 - move the webserver_group into a main vars file, because the webserver_group is used in several places
