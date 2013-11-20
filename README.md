@@ -35,17 +35,3 @@ that you use the same tool for the job both on the target
 and local machine. E.g. when generating a password hash on
 OSX and Arch using regular python crypt, it will fail to match.
 Consider using http://stackoverflow.com/questions/15231661/how-do-i-create-a-user-and-set-a-password-using-ansible/17992126#17992126
-
-Todo
-----
-- only create password on user creation, never overwrite
-- oh-my-zsh folder -> chown to user:group (recursive)
-- ask pierot if node should go in the webserver role or common role
-- think about:
-   mysql user?
-  - fail2ban
-  - postfix (pierot)
-- enable phar.so by default in php.ini
-- move the webserver_group into a main vars file, because the webserver_group is used in several places
-- run vim ./install script after clone
-- setup git config per user
