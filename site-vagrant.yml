@@ -21,3 +21,10 @@
 
   roles:
     - db
+
+- name: add and setup users
+  hosts: all
+  user: vagrant
+
+  roles:
+    - user
