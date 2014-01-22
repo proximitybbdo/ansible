@@ -1,0 +1,19 @@
+---
+
+- name: install docker
+  pacman: name=$item state=installed
+  sudo: yes
+  with_items:
+    - docker
+
+- name: start docker
+  command: systemctl start docker
+
+- name: start docker on boot
+  command: systemctl enable docker
+
+- name: enable ipv4 packer forwarding for docker
+  command: sysctl net.ipv4.ip_forward=1
+
+- name: add sysctl.d/docker.conf file
+  copy: src=sysctl_d_docker.conf dest=/etc/sysctl.d/docker.conf

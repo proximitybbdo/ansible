@@ -3,12 +3,18 @@
 - name: create user
   action: user name={{user}} group={{group}} groups=http shell=/usr/bin/zsh password={{password}} update_password=on_create
 
+- name: set the correct owner
+  action: file path=/home/{{user}} group=admin mode=0775 state=directory recurse=no
+
 - name: add public key to authorized keys
   authorized_key: user={{user}} key="{{item}}"
   with_file:
     - ssh_keys/{{user}}
   notify:
     - restart sshd
+
+- name: generate ssh keys
+  command: ssh-keygen -f /home/{{user}}/.ssh/id_rsa -t rsa -C '{{user}}@noort.be' -N '' creates=/home/{{user}}/.ssh/id_rsa
 
 # - include: ohmyzsh.yml user={{user}} group={{group}} groups={{groups}}
 
@@ -20,6 +26,9 @@
   file: path=/home/{{user}}/conf state=directory
   file: path=/home/{{user}}/conf/apache state=directory
 
+- name: set the correct owner
+  action: file path=/home/{{user}}/conf group=admin mode=0775 state=directory recurse=yes
+
 - name: setup user based vhost
   template: src=vhosts.conf.j2 dest=/home/{{user}}/conf/apache/vhosts.conf
 
@@ -30,7 +39,7 @@
   file: path=/home/{{user}}/projects state=directory
 
 - name: set the correct owner
-  action: file path=/home/{{user}}/projects group=admin mode=0775 state=directory recurse=yes
+  action: file path=/home/{{user}}/projects group=admin mode=0775 state=directory recurse=no
 
 - name: create dummy index.php file in personal web root
   template: src=index.php.j2 dest=/home/{{user}}/projects/index.php owner={{user}} mode=0755
