@@ -23,6 +23,9 @@ pacman -S python2
 sudo bash -c 'bash <( curl -s https://gist.github.com/pierot/7066699/raw/d7c7b934e2dab02ab3bdac978714c106fa7929d6/arch_for_ansible)'
 
 [local]
+# make sure you can ssh without password
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@XXX
+
 # run a test (make sure your pwd is this repo)
 ansible all -i hosts -m ping -u root
 ````

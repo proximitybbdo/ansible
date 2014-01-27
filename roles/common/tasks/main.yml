@@ -32,6 +32,8 @@
     - wget
     - ruby
     - nodejs
+    - htop # better top :)
+    - iotop
     - mesa-libgl # dependency of gvim
     - gvim # has python, ruby and lua support
     - the_silver_searcher # ack, but faster
