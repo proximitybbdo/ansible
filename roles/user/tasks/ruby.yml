@@ -1,15 +1,15 @@
 ---
 # - name: Install Bundler
 #   gem: name=bundler state=present user_install=yes
-#   sudo_user: $user
+#   sudo_user: {{user}}
 #   sudo: yes
 #
 # - name: Update Rubygems
 #   command: gem update --system
 
 # - name: Install various gems
-#   gem: name=$item state=present user_install=yes
-#   sudo_user: $user
+#   gem: name={{item}} state=present user_install=yes
+#   sudo_user: {{user}}
 #   sudo: yes
 #   with_items:
 #     - bundler

@@ -30,4 +30,5 @@
   user: root
 
   roles:
-    - user
+    - role: user
+      with_items: users

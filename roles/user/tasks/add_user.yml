@@ -1,13 +1,13 @@
 ---
 
 - name: create user
-  action: user name={{user}} group={{group}} groups=http shell=/usr/bin/zsh password={{password}} update_password=on_create
+  action: user name={{ user }} group={{ group }} groups=http shell=/usr/bin/zsh password={{ password }} update_password=on_create
 
 - name: set the correct owner
-  action: file path=/home/{{user}} group=admin mode=0775 state=directory recurse=no
+  file: path=/home/{{ user }} group=admin mode=0700 state=directory recurse=no
 
 - name: add public key to authorized keys
-  authorized_key: user={{user}} key="{{item}}"
+  authorized_key: user={{ user }} key="{{item}}"
   with_file:
     - ssh_keys/{{user}}
   notify:
@@ -20,35 +20,38 @@
 
 - include: vim.yml user={{user}} group={{group}}
 
-- include: ruby.yml user={{user}}
+- include: ruby.yml user={{user}} group={{group}}
+
+- include: btsync.yml user={{user}} group={{group}}
 
 - name: create personal conf folder
   file: path=/home/{{user}}/conf state=directory
   file: path=/home/{{user}}/conf/apache state=directory
 
 - name: set the correct owner
-  action: file path=/home/{{user}}/conf group=admin mode=0775 state=directory recurse=yes
+  file: path=/home/{{user}}/conf group={{group}} mode=0775 state=directory recurse=yes
 
 - name: setup user based vhost
-  template: src=vhosts.conf.j2 dest=/home/{{user}}/conf/apache/vhosts.conf
+  template: src=vhosts.conf.j2 dest=/home/{{user}}/conf/apache/vhosts.conf group={{group}}
 
 - name: include vhosts in httpd/apache conf
-  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Include \/home\/{{user}}\/conf\/apache\/vhosts.conf" insertafter="^# User based VirtualHosts" line="Include /home/{{user}}/conf/apache/vhosts.conf"
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^Include \/home\/{{user}}\/conf\/apache\/vhosts.conf"
+    insertafter="^# User based VirtualHosts"
+    line="Include /home/{{user}}/conf/apache/vhosts.conf"
 
 - name: create personal web root
-  file: path=/home/{{user}}/projects state=directory
-
-- name: set the correct owner
-  action: file path=/home/{{user}}/projects group=admin mode=0775 state=directory recurse=no
+  file: path=/home/{{user}}/projects state=directory group={{group}} mode=0775 state=directory recurse=no
 
 - name: create dummy index.php file in personal web root
   template: src=index.php.j2 dest=/home/{{user}}/projects/index.php owner={{user}} mode=0755
 
-- name: make the home folder accessible for apache
-  action: file path=/home/{{user}} group=admin mode=0755 state=directory recurse=no
-
 - name: add user port to httpd/apache conf
-  lineinfile: dest=/etc/httpd/conf/httpd.conf regexp='^Listen {{port}}' insertafter='^#Listen' line='Listen {{port}}'
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp='^Listen {{port}}'
+    insertafter='^#Listen'
+    line='Listen {{port}}'
   notify:
     - restart apache
-

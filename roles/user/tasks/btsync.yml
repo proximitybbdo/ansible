@@ -1,0 +1,39 @@
+---
+
+- name: Install btsync
+  command: yaourt -S btsync --force --noconfirm
+  sudo: yes
+
+- name: Create the storage path
+  file: path=/home/{{ user }}/.btsync state=directory owner={{ user }} group={{ group }} mode=0700
+
+- name: Create the shared directory for all sync dirs
+  file: path=/home/{{user}}/shared state=directory owner={{ user }} group={{ group }} mode=0700
+
+- name: Create the directories where we need to sync
+  file: path={{ item.dir }} state=directory owner={{ user }} group={{ group }} mode=0700
+  with_items: btsync_shared
+  when: item.dir is defined
+
+- name: Configure btsync
+  template:
+    src=btsync.user.config.j2
+    dest=/home/{{ user }}/.btsync.config
+    group={{ group }}
+    owner={{ user }}
+    mode=0600
+  # notify: restart btsync
+
+- name: Configure btsync server (will do this once)
+  template:
+    src=btsync.service.j2
+    dest=/usr/lib/systemd/system/btsync@.service
+    group=root
+    owner=root
+  # notify: restart btsync
+
+- name: Enable btsync service
+  service: name=btsync@{{ user }} enabled=yes
+
+- name: restart btsync
+  service: name=btsync@{{ user }} state=restarted

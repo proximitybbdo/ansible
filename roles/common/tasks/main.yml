@@ -15,16 +15,55 @@
   copy: src=sshd_issue.net dest=/etc/issue.net
   notify: restart sshd
 
-- name: update pacman
-  action: command pacman -Syy
-
 - name: set server locale
   file: src=/usr/share/zoneinfo/Europe/Brussels dest=/etc/localtime state=link
 
+# Use this when bug is fixed: https://github.com/ansible/ansible/issues/5679
+# # After adding this you need to update the pacman database (pacman -Syy)
+# - name: Add yaourt pacman destination
+#   lineinfile:
+#     dest=/etc/pacman.conf
+#     regexp="^\[archlinuxfr\]"
+#     insertafter=EOF
+#     line='[archlinuxfr]\nSigLevel = Never\nServer = http://repo.archlinux.fr/$arch'
+#     state=present
+#     create=True
+
+- name: Add yaourt pacman destination
+  lineinfile:
+    dest=/etc/pacman.conf
+    regexp="^\[archlinuxfr\]"
+    insertafter=EOF
+    line='[archlinuxfr]'
+    state=present
+    create=True
+
+- name: Add yaourt pacman destination
+  lineinfile:
+    dest=/etc/pacman.conf
+    regexp="^SigLevel ="
+    insertafter=EOF
+    line='SigLevel = Never'
+    state=present
+    create=True
+
+- name: Add yaourt pacman destination
+  lineinfile:
+    dest=/etc/pacman.conf
+    regexp="^Server ="
+    insertafter=EOF
+    line='Server = http://repo.archlinux.fr/$arch'
+    state=present
+    create=True
+
+- name: update pacman
+  action: command pacman -Syy
+
 - name: install packages
-  pacman: name=$item state=installed
+  pacman: name={{ item }} state=installed
   sudo: yes
   with_items:
+    - dnsutils
     - git
     - zsh
     - git-core
@@ -32,12 +71,20 @@
     - wget
     - ruby
     - nodejs
+    - unzip
+    - yaourt # install community packages
     - htop # better top :)
     - iotop
     - mesa-libgl # dependency of gvim
     - gvim # has python, ruby and lua support
     - the_silver_searcher # ack, but faster
-    - docker
+
+- name: install ntpd for date / time sync
+  pacman: name=ntp state=installed
+  sudo: yes
+
+- name: ntpd service state
+  service: name=ntpd state=started enabled=yes
 
 - name: create admin group
   action: group name=admin

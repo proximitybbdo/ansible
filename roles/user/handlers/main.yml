@@ -5,3 +5,7 @@
 
 - name: restart sshd
   service: name=sshd state=reloaded
+
+# - name: restart btsync
+#   service: name=btsync@{{ user }} state=restarted
+
