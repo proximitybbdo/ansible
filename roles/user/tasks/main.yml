@@ -1,7 +1,21 @@
+---
+
 - include: add_user.yml
-    user={{item.name}}
-    group={{item.group}}
-    groups={{item.groups}}
-    password={{item.password}}
-    port={{item.port}}
-  with_items: users
+  user: jeroenb
+  group: admin
+  password: $5$rounds=80000$HalY051ch9L3D3MO$sf6ZtueFLs4y1UQBTD73Fijv77xJP92EU2.vF1uHlX1
+  port: 9991
+  btsync_shared: []
+
+- include: add_user.yml
+  user: pierot
+  group: admin
+  password: $5$rounds=80000$HalY051ch9L3D3MO$sf6ZtueFLs4y1UQBTD73Fijv77xJP92EU2.vF1uHlX1
+  port: 9992
+  btsync_shared: # btsync dir
+    - dir: /home/{{ user }}/shared/work
+      secret: XXXX
+      use_relay_server: true
+      use_dht: false
+      search_lan: false
+      use_sync_trash: true
