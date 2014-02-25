@@ -1,0 +1,26 @@
+---
+
+- name: install nginx
+  pacman: name={{ item }} state=installed
+  with_items:
+   - nginx
+
+- name: create logs folder
+  file: path=/etc/nginx/logs state=directory
+
+- name: create sites-enabled folder
+  file: path=/etc/nginx/sites-enabled state=directory
+
+- name: setup nginx conf
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf force=yes
+  notify:
+    - restart nginx
+
+- name: setup go site
+  template: src=go.conf.j2 dest=/etc/nginx/sites-enabled/go.conf mode=0755
+  notify:
+    - restart nginx
+
+- name: nginx service state
+  service: name=nginx state=started enabled=yes
+

@@ -1,0 +1,18 @@
+upstream go_http {
+  server 127.0.0.1:3000;
+  keepalive 300;
+}
+
+server {
+  listen 80;
+  server_name go;
+  access_log   logs/go.log  main;
+
+  location / {
+    proxy_pass http://go_http;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+  }
+
+  try_files $uri $uri.html =404;
+}
