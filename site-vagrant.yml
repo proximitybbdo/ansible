@@ -28,3 +28,10 @@
 
   roles:
     - user
+
+- name: nginx and go installation
+  hosts: all
+  user: vagrant
+
+  roles:
+    - nginx-go

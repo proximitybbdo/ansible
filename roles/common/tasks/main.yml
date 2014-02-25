@@ -86,7 +86,16 @@
 - name: ntpd service state
   service: name=ntpd state=started enabled=yes
 
+- name: install fail2ban for ssh security
+  pacman: name=fail2ban state=installed
+  sudo: yes
+
+- name: fail2ban service state
+  service: name=fail2ban state=started enabled=yes
+
 - name: create admin group
   action: group name=admin
 
 - include: docker.yml
+
+- include: golang.yml

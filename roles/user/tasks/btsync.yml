@@ -8,7 +8,7 @@
   file: path=/home/{{ user }}/.btsync state=directory owner={{ user }} group={{ group }} mode=0700
 
 - name: Create the shared directory for all sync dirs
-  file: path=/home/{{user}}/shared state=directory owner={{ user }} group={{ group }} mode=0700
+  file: path=/home/{{ user }}/shared state=directory owner={{ user }} group={{ group }} mode=0700
 
 - name: Create the directories where we need to sync
   file: path={{ item.dir }} state=directory owner={{ user }} group={{ group }} mode=0700
@@ -32,8 +32,12 @@
     owner=root
   # notify: restart btsync
 
-- name: Enable btsync service
-  service: name=btsync@{{ user }} enabled=yes
+- name: Reload systemctl daemon
+  command: systemctl daemon-reload
+  sudo: yes
 
-- name: restart btsync
-  service: name=btsync@{{ user }} state=restarted
+# - name: Enable btsync service
+#   service: name=btsync@{{ user }} enabled=yes
+
+# - name: Start / Enable btsync
+#   service: name=btsync@{{ user }} state=started enabled=yes

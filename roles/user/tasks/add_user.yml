@@ -36,6 +36,7 @@
 
 - name: include vhosts in httpd/apache conf
   lineinfile:
+    state=present
     dest=/etc/httpd/conf/httpd.conf
     regexp="^Include \/home\/{{user}}\/conf\/apache\/vhosts.conf"
     insertafter="^# User based VirtualHosts"
@@ -43,6 +44,10 @@
 
 - name: create personal web root
   file: path=/home/{{user}}/projects state=directory group={{group}} mode=0775 state=directory recurse=no
+
+- name: create go directory
+  file: path=/home/{{user}}/projects/go state=directory group={{group}} mode=0775 state=directory recurse=no
+  file: path=/home/{{user}}/projects/go/src state=directory group={{group}} mode=0775 state=directory recurse=no
 
 - name: create dummy index.php file in personal web root
   template: src=index.php.j2 dest=/home/{{user}}/projects/index.php owner={{user}} mode=0755
@@ -55,3 +60,6 @@
     line='Listen {{port}}'
   notify:
     - restart apache
+
+- name: set the correct owner
+  file: path=/home/{{ user }} owner={{user}} state=directory recurse=yes
