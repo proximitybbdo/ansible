@@ -1,5 +1,6 @@
 ---
-# This playbook will install mysql and create db user and give permissions.
+
+  # MYSQL
 
 - name: install mysql package
   pacman: name={{ item }} state=installed
@@ -11,8 +12,35 @@
   action: template src=my.cnf.j2 dest=/etc/my.cnf
   notify: restart mysql
 
-- name: start mysql Service
+- name: start mysql service
   service: name=mysqld state=started enabled=true
 
 - name: create application DB user
   mysql_user: name={{ dbuser }} password='' priv=*.*:ALL host='%' state=present
+
+  # POSTGRESQL
+
+- name: install postgresql package
+  pacman: name={{ item }} state=installed
+  with_items:
+    - postgresql
+    - postgresql-libs
+
+- name: check if postgresql is inited
+  stat: path=/var/lib/postgres/data/pg_hba.conf
+  register: postgresql_inited
+
+- name: init postgresql
+  command: su - postgres -c "initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'"
+  sudo: yes
+  when: postgresql_inited.stat.exists == false
+
+- name: start postgresql service
+  service: name=postgresql state=started enabled=true
+
+# - name: install postgresql config file
+#   template: src=postgresql.conf.j2
+#             dest=/var/lib/postgres/data/postgresql.conf
+#             owner=postgres group=postgres
+#   notify:
+#     - restart postgresql

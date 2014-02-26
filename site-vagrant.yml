@@ -1,37 +1,44 @@
 ---
 # This playbook builds a LAMP stack
 
-- name: apply common configuration to all nodes
+# - name: apply common configuration to all nodes
+#   hosts: all
+#   user: vagrant
+#
+#   roles:
+#     - common
+#
+# - name: configure and deploy the webservers
+#   hosts: webservers
+#   user: vagrant
+#
+#   roles:
+#     - web
+
+- name: nginx installation
   hosts: all
   user: vagrant
 
   roles:
-    - common
+    - nginx
 
-- name: configure and deploy the webservers
-  hosts: webservers
-  user: vagrant
-
-  roles:
-    - web
-
-- name: deploy MySQL and configure the databases
+- name: deploy MySQL and PostgreSQL and configure the databases
   hosts: dbservers
   user: vagrant
 
   roles:
     - db
 
-- name: add and setup users
+# - name: add and setup users
+#   hosts: all
+#   user: vagrant
+#
+#   roles:
+#     - user
+
+- name: go install :3000
   hosts: all
   user: vagrant
 
   roles:
-    - user
-
-- name: nginx and go installation
-  hosts: all
-  user: vagrant
-
-  roles:
-    - nginx-go
+    - go_app

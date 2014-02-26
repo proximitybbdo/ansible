@@ -1,0 +1,6 @@
+---
+
+- name: setup go site
+  template: src=go.conf.j2 dest=/etc/nginx/sites-enabled/go.conf mode=0755
+  notify:
+    - restart nginx
