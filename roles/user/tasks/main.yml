@@ -19,3 +19,10 @@
       use_dht: false
       search_lan: false
       use_sync_trash: true
+
+- include: add_user.yml
+  user: joejack
+  group: admin
+  password: $5$rounds=80000$HalY051ch9L3D3MO$sf6ZtueFLs4y1UQBTD73Fijv77xJP92EU2.vF1uHlX1
+  port: 9993
+  btsync_shared: []

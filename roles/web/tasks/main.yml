@@ -9,19 +9,81 @@
    - php
    - php-apache
 
+# Use this when bug is fixed: https://github.com/ansible/ansible/issues/5679
+# - name: php5 config in apache httpd conf
+#   lineinfile:
+#     dest=/etc/httpd/conf/httpd.conf
+#     regexp="^# PHP5 Setup"
+#     line="# PHP5 Setup\n LoadModule php5_module modules/libphp5.so\n AddHandler php5-script php\n Include conf/extra/php5_module.conf"
+#     insertafter=EOF
+#     state=present
+
+- name: php5 config in apache httpd conf
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^# PHP5 Setup"
+    line="# PHP5 Setup"
+    insertafter=EOF
+    state=present
+
+- name: php5 config in apache httpd conf
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^LoadModule php5_module modules/libphp5.so"
+    line="LoadModule php5_module modules/libphp5.so"
+    insertafter=EOF
+    state=present
+
+- name: php5 config in apache httpd conf
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^AddHandler php5-script php"
+    line="AddHandler php5-script php"
+    insertafter=EOF
+    state=present
+
+- name: php5 config in apache httpd conf
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^Include conf/extra/php5_module.conf"
+    line="Include conf/extra/php5_module.conf"
+    insertafter=EOF
+    state=present
+
+- name: apache config listen
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^Listen 80"
+    line="Listen 8080"
+    state=present
+
+    # regexp="^#ServerName www.example.com:80"
+- name: apache config listen
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    insertafter="^#ServerName www.example.com:80"
+    line="ServerName leroy"
+    state=present
+
+- name: apache config mpm
+  lineinfile:
+    dest=/etc/httpd/conf/httpd.conf
+    regexp="^LoadModule mpm_"
+    line="LoadModule mpm_prefork_module modules/mod_mpm_prefork.so"
+    state=present
+
 - name: apache service state
   service: name=httpd state=started enabled=yes
-
-- name: setup apache httpd conf
-  copy: src=httpd.conf dest=/etc/httpd/conf/httpd.conf
-  notify:
-    - restart apache
 
 - name: setup php.ini
   copy: src=php.ini dest=/etc/php/php.ini
 
 - name: add mimetype for php
-  lineinfile: dest=/etc/httpd/conf/mime.types regexp="^application/x-httpd-php" line="application/x-httpd-php php php5" state=present
+  lineinfile:
+    dest=/etc/httpd/conf/mime.types
+    regexp="^application/x-httpd-php"
+    line="application/x-httpd-php php php5"
+    state=present
 
 - name: set host
   lineinfile: dest=/etc/hosts regexp=localhost line="127.0.0.1 localhost leroy" state=present
